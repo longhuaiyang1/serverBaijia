@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baijia.lhy.mapper.OrderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.baijia.lhy.pojo.entity.OrderInfo">
+    <id column="order_info_id" jdbcType="INTEGER" property="orderInfoId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="origin_good_id" jdbcType="INTEGER" property="originGoodId" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="old_price" jdbcType="DOUBLE" property="oldPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_info_id, order_id, origin_good_id, price, count, img, old_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where order_info_id = #{orderInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_info
+    where order_info_id = #{orderInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.baijia.lhy.pojo.entity.OrderInfo">
+    insert into order_info (order_info_id, order_id, origin_good_id, 
+      price, count, img, old_price
+      )
+    values (#{orderInfoId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{originGoodId,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{count,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, #{oldPrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baijia.lhy.pojo.entity.OrderInfo">
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderInfoId != null">
+        order_info_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="originGoodId != null">
+        origin_good_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="oldPrice != null">
+        old_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderInfoId != null">
+        #{orderInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="originGoodId != null">
+        #{originGoodId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="oldPrice != null">
+        #{oldPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baijia.lhy.pojo.entity.OrderInfo">
+    update order_info
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="originGoodId != null">
+        origin_good_id = #{originGoodId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="oldPrice != null">
+        old_price = #{oldPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where order_info_id = #{orderInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baijia.lhy.pojo.entity.OrderInfo">
+    update order_info
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      origin_good_id = #{originGoodId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      count = #{count,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      old_price = #{oldPrice,jdbcType=DOUBLE}
+    where order_info_id = #{orderInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>
