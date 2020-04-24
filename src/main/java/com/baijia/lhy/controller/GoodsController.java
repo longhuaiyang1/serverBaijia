@@ -2,6 +2,7 @@ package com.baijia.lhy.controller;
 
 import com.baijia.lhy.mapper.GoodsMapper;
 import com.baijia.lhy.pojo.entity.Goods;
+import com.baijia.lhy.service.impl.GoodsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +15,10 @@ import java.util.List;
 public class GoodsController {
 
     @Autowired
-    GoodsMapper goodsMapper;
+    GoodsServiceImpl goodsService;
 
     @GetMapping("/getAllGoods")
     public List<Goods> getAllGoods(){//获取商品列表
-        return goodsMapper.getAllGoods();
+        return goodsService.getAllGoods();
     }
 }

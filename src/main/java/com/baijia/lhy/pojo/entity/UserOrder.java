@@ -1,115 +1,82 @@
 package com.baijia.lhy.pojo.entity;
 
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
-public class UserOrder {
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lhy
+ * @since 2020-04-24
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("user_order")
+public class UserOrder implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+    /**
+     * 订单id
+     */
     private String orderId;
 
+    /**
+     * 订单总金额
+     */
     private Double allCost;
 
-    private Date createTime;
+    /**
+     * 订单创建时间
+     */
+    private LocalDateTime createTime;
 
-    private Date payTime;
+    /**
+     * 付款时间
+     */
+    private LocalDateTime payTime;
 
+    /**
+     * 收货人电话
+     */
     private String receiverPhone;
 
+    /**
+     * 收货人姓名
+     */
     private String receiverName;
 
+    /**
+     * 收货地址
+     */
     private String receiveAddress;
 
+    /**
+     * 支付方式
+     */
     private String payType;
 
+    /**
+     * 订单状态: 待付款，待收货,待评价，已退款，已取消
+     */
     private String status;
 
+    /**
+     * 实际付款金额
+     */
     private Double actualPayment;
 
+    /**
+     * 总减免金额
+     */
     private Double totalDeduction;
 
-    public String getOrderId() {
-        return orderId;
-    }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    public Double getAllCost() {
-        return allCost;
-    }
-
-    public void setAllCost(Double allCost) {
-        this.allCost = allCost;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
-
-    public String getReceiverPhone() {
-        return receiverPhone;
-    }
-
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone == null ? null : receiverPhone.trim();
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName == null ? null : receiverName.trim();
-    }
-
-    public String getReceiveAddress() {
-        return receiveAddress;
-    }
-
-    public void setReceiveAddress(String receiveAddress) {
-        this.receiveAddress = receiveAddress == null ? null : receiveAddress.trim();
-    }
-
-    public String getPayType() {
-        return payType;
-    }
-
-    public void setPayType(String payType) {
-        this.payType = payType == null ? null : payType.trim();
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
-
-    public Double getActualPayment() {
-        return actualPayment;
-    }
-
-    public void setActualPayment(Double actualPayment) {
-        this.actualPayment = actualPayment;
-    }
-
-    public Double getTotalDeduction() {
-        return totalDeduction;
-    }
-
-    public void setTotalDeduction(Double totalDeduction) {
-        this.totalDeduction = totalDeduction;
-    }
 }

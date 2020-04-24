@@ -1,105 +1,78 @@
 package com.baijia.lhy.pojo.entity;
 
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
-public class User {
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lhy
+ * @since 2020-04-24
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class User implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+    /**
+     * 用户id
+     */
+    @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
+    /**
+     * 微信用户id
+     */
     private String wxOpenId;
 
+    /**
+     * 微信会话密钥
+     */
     private String wxSessionKey;
 
+    /**
+     * 用户昵称
+     */
     private String nickName;
 
+    /**
+     * 真实名字
+     */
     private String realName;
 
+    /**
+     * 头像url
+     */
     private String headerImg;
 
+    /**
+     * 手机号
+     */
     private String phone;
 
+    /**
+     * 用户密码
+     */
     private String password;
 
-    private Date lastLoginTime;
+    /**
+     * 最后登录时间
+     */
+    private LocalDateTime lastLoginTime;
 
+    /**
+     * 最后登录ip
+     */
     private String lastLoginIp;
 
-    public Integer getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getWxOpenId() {
-        return wxOpenId;
-    }
-
-    public void setWxOpenId(String wxOpenId) {
-        this.wxOpenId = wxOpenId == null ? null : wxOpenId.trim();
-    }
-
-    public String getWxSessionKey() {
-        return wxSessionKey;
-    }
-
-    public void setWxSessionKey(String wxSessionKey) {
-        this.wxSessionKey = wxSessionKey == null ? null : wxSessionKey.trim();
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName == null ? null : realName.trim();
-    }
-
-    public String getHeaderImg() {
-        return headerImg;
-    }
-
-    public void setHeaderImg(String headerImg) {
-        this.headerImg = headerImg == null ? null : headerImg.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
-
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
-    }
 }

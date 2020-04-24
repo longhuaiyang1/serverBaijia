@@ -1,25 +1,19 @@
 package com.baijia.lhy.mapper;
 
 import com.baijia.lhy.pojo.entity.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author lhy
+ * @since 2020-04-24
+ */
 @Mapper
 @Repository
-public interface UserMapper {
-    User selectByWxOpenId(String wxOpenId);
-
-    User selectByWxSessionKey(String wxSessionKey);
-
-    int deleteByPrimaryKey(Integer userId);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer userId);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+public interface UserMapper extends BaseMapper<User> {
 }

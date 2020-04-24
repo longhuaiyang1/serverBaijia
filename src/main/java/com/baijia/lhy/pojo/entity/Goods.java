@@ -1,95 +1,73 @@
 package com.baijia.lhy.pojo.entity;
 
 import java.math.BigDecimal;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
-public class Goods {
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lhy
+ * @since 2020-04-24
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Goods implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+    /**
+     * 商品id
+     */
+    @TableId(value = "goods_id", type = IdType.AUTO)
     private Integer goodsId;
 
+    /**
+     * 商品类型id
+     */
     private Integer goodsTypeId;
 
+    /**
+     * 商品标题
+     */
     private String title;
 
+    /**
+     * 商品图片地址
+     */
     private String img;
 
+    /**
+     * 以前价格
+     */
     private BigDecimal oldPrice;
 
+    /**
+     * 当前价格
+     */
     private BigDecimal price;
 
+    /**
+     * 是否在售:  YES 或 NO
+     */
     private String onSale;
 
+    /**
+     * 商品的详情
+     */
     private Integer detail;
 
+    /**
+     * 库存
+     */
     private Integer count;
 
-    public Integer getGoodsId() {
-        return goodsId;
-    }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    public Integer getGoodsTypeId() {
-        return goodsTypeId;
-    }
-
-    public void setGoodsTypeId(Integer goodsTypeId) {
-        this.goodsTypeId = goodsTypeId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
-    }
-
-    public BigDecimal getOldPrice() {
-        return oldPrice;
-    }
-
-    public void setOldPrice(BigDecimal oldPrice) {
-        this.oldPrice = oldPrice;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getOnSale() {
-        return onSale;
-    }
-
-    public void setOnSale(String onSale) {
-        this.onSale = onSale == null ? null : onSale.trim();
-    }
-
-    public Integer getDetail() {
-        return detail;
-    }
-
-    public void setDetail(Integer detail) {
-        this.detail = detail;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 }

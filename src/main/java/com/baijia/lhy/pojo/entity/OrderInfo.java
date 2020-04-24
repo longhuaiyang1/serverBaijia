@@ -1,73 +1,64 @@
 package com.baijia.lhy.pojo.entity;
 
-public class OrderInfo {
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author lhy
+ * @since 2020-04-24
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("order_info")
+public class OrderInfo implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
+    /**
+     * 订单详情主键id
+     */
+    @TableId(value = "order_info_id", type = IdType.AUTO)
     private Integer orderInfoId;
 
+    /**
+     * 外键哪个订单的id
+     */
     private String orderId;
 
+    /**
+     * 原来的商品的连接
+     */
     private Integer originGoodId;
 
+    /**
+     * 下单时候的商品价格
+     */
     private Double price;
 
+    /**
+     * 这个商品当时的下单数量
+     */
     private Integer count;
 
+    /**
+     * 下单时候商品的图片
+     */
     private String img;
 
+    /**
+     * 下单时候的原价
+     */
     private Double oldPrice;
 
-    public Integer getOrderInfoId() {
-        return orderInfoId;
-    }
 
-    public void setOrderInfoId(Integer orderInfoId) {
-        this.orderInfoId = orderInfoId;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    public Integer getOriginGoodId() {
-        return originGoodId;
-    }
-
-    public void setOriginGoodId(Integer originGoodId) {
-        this.originGoodId = originGoodId;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
-    }
-
-    public Double getOldPrice() {
-        return oldPrice;
-    }
-
-    public void setOldPrice(Double oldPrice) {
-        this.oldPrice = oldPrice;
-    }
 }
