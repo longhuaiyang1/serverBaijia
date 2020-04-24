@@ -25,23 +25,23 @@ public class MyCartServiceImpl implements MyCartService {
         Integer goods_id = (Integer) jsonObject.get("goods_id");
 
         User user = userMapper.selectByWxSessionKey(session_key);
-        if(user ==null){
+        if (user == null) {
             return false;
         }
 
-        if(StringUtils.isEmpty(session_key) || goods_id<=0){
+        if (StringUtils.isEmpty(session_key) || goods_id <= 0) {
             return false;
-        }else{
-            ShopCar shopCar = shopCarMapper.selectByGoodsIdAndUserId(user.getUserId(),goods_id);
+        } else {
+            ShopCar shopCar = shopCarMapper.selectByGoodsIdAndUserId(user.getUserId(), goods_id);
             //商品订购数量加1
-            if(shopCar==null){
+            if (shopCar == null) {
                 shopCar = new ShopCar();
                 shopCar.setCount(1);
                 shopCar.setUserId(user.getUserId());
                 shopCar.setGoodsId(goods_id);
                 shopCarMapper.insertSelective(shopCar);
-            }else{
-                shopCar.setCount(shopCar.getCount()+1);
+            } else {
+                shopCar.setCount(shopCar.getCount() + 1);
                 shopCarMapper.updateByPrimaryKeySelective(shopCar);
             }
             return true;
@@ -55,17 +55,22 @@ public class MyCartServiceImpl implements MyCartService {
         Integer goods_id = (Integer) jsonObject.get("goods_id");
 
         User user = userMapper.selectByWxSessionKey(session_key);
-        if(user ==null){
+        if (user == null) {
             return false;
         }
 
-        if(StringUtils.isEmpty(session_key) || goods_id<=0){
+        if (StringUtils.isEmpty(session_key) || goods_id <= 0) {
             return false;
-        }else{
-            ShopCar shopCar = new ShopCar();
-            shopCar.setUserId(user.getUserId());
-            shopCar.setGoodsId(goods_id);
-            return shopCarMapper.deleteByGoodsIdAndUserId(shopCar);
+        } else {
+            ShopCar shopCar = shopCarMapper.selectByGoodsIdAndUserId(user.getUserId(), goods_id);
+            shopCar.setCount(shopCar.getCount() - 1);
+            if (shopCar.getCount() <= 0) {
+                shopCarMapper.deleteByPrimaryKey(shopCar.getShopCarId());
+                return true;
+            } else {
+                shopCarMapper.updateByPrimaryKeySelective(shopCar);
+                return true;
+            }
         }
 
     }
