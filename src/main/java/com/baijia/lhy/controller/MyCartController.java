@@ -26,8 +26,8 @@ public class MyCartController {
         return shopCarService.deleteByGoodsIdAndUserId(jsonObject);
     }
 
-    @GetMapping("/getShopCarList")
-    public List<ShopCar> getShopCarList(){
-        return shopCarService.getShopCarList(null);
+    @PostMapping("/getShopCarList")
+    public List<ShopCar> getShopCarList(@RequestBody JSONObject jsonObject){
+        return shopCarService.getShopCarList(jsonObject);
     }
 }

@@ -12,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author lhy
@@ -38,7 +39,7 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
 
 
         QueryWrapper wrapper = new QueryWrapper<>();
-        wrapper.eq("wx_session_key",session_key);
+        wrapper.eq("wx_session_key", session_key);
         User user = userMapper.selectOne(wrapper);
         if (user == null) {
             return false;
@@ -48,18 +49,18 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
             return false;
         } else {
             wrapper = new QueryWrapper<>();
-            wrapper.eq("user_id",user.getUserId());
-            wrapper.eq("goods_id",goods_id);
+            wrapper.eq("user_id", user.getUserId());
+            wrapper.eq("goods_id", goods_id);
             ShopCar shopCar = shopCarMapper.selectOne(wrapper);
             //商品订购数量加1
             if (shopCar == null) {
                 shopCar = new ShopCar();
-                shopCar.setCount(1);
+                shopCar.setShopCarCount(1);
                 shopCar.setUserId(user.getUserId());
                 shopCar.setGoodsId(goods_id);
                 shopCarMapper.insert(shopCar);
             } else {
-                shopCar.setCount(shopCar.getCount() + 1);
+                shopCar.setShopCarCount(shopCar.getShopCarCount() + 1);
                 shopCarMapper.updateById(shopCar);
             }
             return true;
@@ -73,7 +74,7 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
         Integer goods_id = (Integer) jsonObject.get("goods_id");
 
         QueryWrapper wrapper = new QueryWrapper<>();
-        wrapper.eq("wx_session_key",session_key);
+        wrapper.eq("wx_session_key", session_key);
         User user = userMapper.selectOne(wrapper);
         if (user == null) {
             return false;
@@ -83,11 +84,11 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
             return false;
         } else {
             wrapper = new QueryWrapper<>();
-            wrapper.eq("user_id",user.getUserId());
-            wrapper.eq("goods_id",goods_id);
+            wrapper.eq("user_id", user.getUserId());
+            wrapper.eq("goods_id", goods_id);
             ShopCar shopCar = shopCarMapper.selectOne(wrapper);
-            shopCar.setCount(shopCar.getCount() - 1);
-            if (shopCar.getCount() <= 0) {
+            shopCar.setShopCarCount(shopCar.getShopCarCount() - 1);
+            if (shopCar.getShopCarCount() <= 0) {
                 shopCarMapper.deleteById(shopCar.getShopCarId());
                 return true;
             } else {
@@ -100,6 +101,15 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
 
     @Override
     public List<ShopCar> getShopCarList(JSONObject jsonObject) {
-        return shopCarMapper.getShopCarList();
+        String session_key = jsonObject.getAsString("session_key");
+
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("wx_session_key", session_key);
+        User user = userMapper.selectOne(wrapper);
+        if (user == null) {
+            return new ArrayList<>();
+        }
+
+        return shopCarMapper.getShopCarList(user.getUserId());
     }
 }

@@ -5,7 +5,7 @@
         <id column="shop_car_id" property="shopCarId"/>
         <result column="user_id" property="userId"/>
         <result column="goods_id" property="goodsId"/>
-        <result column="count" property="count"/>
+        <result column="shop_car_count" property="shopCarCount"/>
 
         <association property="goods" resultMap="goodsResultMap"/>
     </resultMap>
@@ -23,6 +23,6 @@
     </resultMap>
 
     <select id="getShopCarList" resultMap="showCarResultMap">
-         select * from goods g inner join shop_car s  on g.goods_id=s.goods_id and s.goods_id=1
+         select * from goods g inner join shop_car s  on g.goods_id=s.goods_id and s.user_id=#{userId}
     </select>
 </mapper>

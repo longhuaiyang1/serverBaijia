@@ -18,5 +18,5 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ShopCarMapper extends BaseMapper<ShopCar> {
-     List<ShopCar> getShopCarList();
+     List<ShopCar> getShopCarList(int userId);
 }
