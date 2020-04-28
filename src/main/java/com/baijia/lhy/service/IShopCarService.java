@@ -4,6 +4,8 @@ import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.minidev.json.JSONObject;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务类
@@ -17,4 +19,6 @@ public interface IShopCarService extends IService<ShopCar> {
     boolean addGoodsToMyCart(JSONObject jsonObject);
 
     boolean deleteByGoodsIdAndUserId(JSONObject jsonObject);
+
+    List<ShopCar> getShopCarList(JSONObject jsonObject);
 }

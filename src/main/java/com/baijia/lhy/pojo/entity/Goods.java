@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -19,9 +21,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@TableName("goods")
 public class Goods implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID=1000L;
 
     /**
      * 商品id
@@ -47,12 +50,12 @@ public class Goods implements Serializable {
     /**
      * 以前价格
      */
-    private BigDecimal oldPrice;
+    private Double oldPrice;
 
     /**
      * 当前价格
      */
-    private BigDecimal price;
+    private Double price;
 
     /**
      * 是否在售:  YES 或 NO
@@ -62,7 +65,7 @@ public class Goods implements Serializable {
     /**
      * 商品的详情
      */
-    private Integer detail;
+    private String detail;
 
     /**
      * 库存

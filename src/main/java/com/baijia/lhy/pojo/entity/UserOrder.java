@@ -1,5 +1,7 @@
 package com.baijia.lhy.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -26,6 +28,7 @@ public class UserOrder implements Serializable {
     /**
      * 订单id
      */
+    @TableId(value = "order_id", type = IdType.AUTO)
     private String orderId;
 
     /**

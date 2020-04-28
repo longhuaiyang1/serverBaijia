@@ -45,5 +45,6 @@ public class ShopCar implements Serializable {
      */
     private Integer count;
 
-
+    //商品
+    private Goods goods;
 }

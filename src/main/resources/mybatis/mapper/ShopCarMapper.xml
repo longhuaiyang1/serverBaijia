@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baijia.lhy.mapper.ShopCarMapper">
+    <resultMap id="showCarResultMap" type="com.baijia.lhy.pojo.entity.ShopCar">
+        <id column="shop_car_id" property="shopCarId"/>
+        <result column="user_id" property="userId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="count" property="count"/>
 
+        <association property="goods" resultMap="goodsResultMap"/>
+    </resultMap>
+
+    <resultMap id="goodsResultMap" type="com.baijia.lhy.pojo.entity.Goods">
+        <id column="goods_id" property="goodsId"/>
+        <result column="goods_type_id" property="goodsTypeId"/>
+        <result column="title" property="title"/>
+        <result column="on_sale" property="onSale"/>
+        <result column="count" property="count"/>
+        <result column="img" property="img"/>
+        <result column="old_price" property="oldPrice"/>
+        <result column="price" property="price"/>
+        <result column="detail" property="detail"/>
+    </resultMap>
+
+    <select id="getShopCarList" resultMap="showCarResultMap">
+         select * from goods g inner join shop_car s  on g.goods_id=s.goods_id and s.goods_id=1
+    </select>
 </mapper>

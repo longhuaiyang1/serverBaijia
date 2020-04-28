@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -94,5 +96,10 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
             }
         }
 
+    }
+
+    @Override
+    public List<ShopCar> getShopCarList(JSONObject jsonObject) {
+        return shopCarMapper.getShopCarList();
     }
 }
