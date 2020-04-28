@@ -1,5 +1,6 @@
 package com.baijia.lhy.service;
 
+import com.baijia.lhy.pojo.dto.Result;
 import com.baijia.lhy.pojo.dto.ShopCarGoods;
 import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -17,9 +18,9 @@ import java.util.List;
  */
 public interface IShopCarService extends IService<ShopCar> {
 
-    boolean addGoodsToMyCart(JSONObject jsonObject);
+    Result addGoodsToMyCart(JSONObject jsonObject);
 
-    boolean deleteByGoodsIdAndUserId(JSONObject jsonObject);
+    Result deleteByGoodsIdAndUserId(JSONObject jsonObject);
 
     List<ShopCarGoods> getShopCarList(JSONObject jsonObject);
 }

@@ -1,6 +1,7 @@
 package com.baijia.lhy.service.impl;
 
 import com.baijia.lhy.mapper.UserMapper;
+import com.baijia.lhy.pojo.dto.Result;
 import com.baijia.lhy.pojo.dto.ShopCarGoods;
 import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baijia.lhy.mapper.ShopCarMapper;
@@ -33,7 +34,7 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
     UserMapper userMapper;
 
     @Override
-    public boolean addGoodsToMyCart(JSONObject jsonObject) {
+    public Result addGoodsToMyCart(JSONObject jsonObject) {
         int count = 1;//接口默认添加一份订单
         String session_key = jsonObject.getAsString("session_key");
         Integer goods_id = (Integer) jsonObject.get("goods_id");
@@ -43,11 +44,19 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
         wrapper.eq("wx_session_key", session_key);
         User user = userMapper.selectOne(wrapper);
         if (user == null) {
-            return false;
+            Result result = new Result();
+            result.setCode(3001);
+            result.setMsg("没有该用户");
+            result.setData(new JSONObject());
+            return result;
         }
 
         if (StringUtils.isEmpty(session_key) || goods_id <= 0) {
-            return false;
+            Result result = new Result();
+            result.setCode(3001);
+            result.setMsg("没有该用户");
+            result.setData(new JSONObject());
+            return result;
         } else {
             wrapper = new QueryWrapper<>();
             wrapper.eq("user_id", user.getUserId());
@@ -64,12 +73,17 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
                 shopCar.setShopCarCount(shopCar.getShopCarCount() + 1);
                 shopCarMapper.updateById(shopCar);
             }
-            return true;
+
+            Result result = new Result();
+            result.setCode(2000);
+            List<ShopCarGoods> list = shopCarMapper.getShopCarList(user.getUserId());//返回订单列表数据
+            result.setData(list);
+            return result;
         }
     }
 
     @Override
-    public boolean deleteByGoodsIdAndUserId(JSONObject jsonObject) {
+    public Result deleteByGoodsIdAndUserId(JSONObject jsonObject) {
         int count = 1;//接口默认删除一份订单
         String session_key = jsonObject.getAsString("session_key");
         Integer goods_id = (Integer) jsonObject.get("goods_id");
@@ -78,11 +92,19 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
         wrapper.eq("wx_session_key", session_key);
         User user = userMapper.selectOne(wrapper);
         if (user == null) {
-            return false;
+            Result result = new Result();
+            result.setCode(3001);
+            result.setMsg("没有该用户");
+            result.setData(new JSONObject());
+            return result;
         }
 
         if (StringUtils.isEmpty(session_key) || goods_id <= 0) {
-            return false;
+            Result result = new Result();
+            result.setCode(3001);
+            result.setMsg("没有该用户");
+            result.setData(new JSONObject());
+            return result;
         } else {
             wrapper = new QueryWrapper<>();
             wrapper.eq("user_id", user.getUserId());
@@ -91,11 +113,15 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
             shopCar.setShopCarCount(shopCar.getShopCarCount() - 1);
             if (shopCar.getShopCarCount() <= 0) {
                 shopCarMapper.deleteById(shopCar.getShopCarId());
-                return true;
             } else {
                 shopCarMapper.updateById(shopCar);
-                return true;
             }
+
+            Result result = new Result();
+            result.setCode(2000);
+            List<ShopCarGoods> list = shopCarMapper.getShopCarList(user.getUserId());//返回订单列表数据
+            result.setData(list);
+            return result;
         }
 
     }

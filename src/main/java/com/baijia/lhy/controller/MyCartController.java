@@ -1,5 +1,6 @@
 package com.baijia.lhy.controller;
 
+import com.baijia.lhy.pojo.dto.Result;
 import com.baijia.lhy.pojo.dto.ShopCarGoods;
 import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baijia.lhy.service.IShopCarService;
@@ -18,12 +19,12 @@ public class MyCartController {
     IShopCarService shopCarService;
 
     @PostMapping("/add")
-    public boolean addGoodsToMyCart(@RequestBody JSONObject jsonObject){//添加商品到购物车
+    public Result addGoodsToMyCart(@RequestBody JSONObject jsonObject){//添加商品到购物车
        return shopCarService.addGoodsToMyCart(jsonObject);
     }
 
     @PostMapping("/delete")
-    public boolean deleteGoodsFromMyCart(@RequestBody JSONObject jsonObject){//从我的购物车删除商品
+    public Result deleteGoodsFromMyCart(@RequestBody JSONObject jsonObject){//从我的购物车删除商品
         return shopCarService.deleteByGoodsIdAndUserId(jsonObject);
     }
 
