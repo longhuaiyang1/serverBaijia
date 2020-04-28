@@ -1,5 +1,6 @@
 package com.baijia.lhy.controller;
 
+import com.baijia.lhy.pojo.dto.ShopCarGoods;
 import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baijia.lhy.service.IShopCarService;
 import com.baijia.lhy.service.impl.ShopCarServiceImpl;
@@ -27,7 +28,7 @@ public class MyCartController {
     }
 
     @PostMapping("/getShopCarList")
-    public List<ShopCar> getShopCarList(@RequestBody JSONObject jsonObject){
+    public List<ShopCarGoods> getShopCarList(@RequestBody JSONObject jsonObject){
         return shopCarService.getShopCarList(jsonObject);
     }
 }

@@ -1,6 +1,7 @@
 package com.baijia.lhy.service.impl;
 
 import com.baijia.lhy.mapper.UserMapper;
+import com.baijia.lhy.pojo.dto.ShopCarGoods;
 import com.baijia.lhy.pojo.entity.ShopCar;
 import com.baijia.lhy.mapper.ShopCarMapper;
 import com.baijia.lhy.pojo.entity.User;
@@ -100,7 +101,7 @@ public class ShopCarServiceImpl extends ServiceImpl<ShopCarMapper, ShopCar> impl
     }
 
     @Override
-    public List<ShopCar> getShopCarList(JSONObject jsonObject) {
+    public List<ShopCarGoods> getShopCarList(JSONObject jsonObject) {
         String session_key = jsonObject.getAsString("session_key");
 
         QueryWrapper wrapper = new QueryWrapper<>();
