@@ -30,9 +30,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     String appId = "wx7d5e459d34ee4251";
     String appSecret = "585edb778309637f1db078889ce4b214";
 
-    @Autowired
-    UserMapper userMapper;
-
     @Override
     public JSONObject wx_login(String code) {
         //添加下面这一段，才能让数据被解析，否则会报错
@@ -61,6 +58,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         QueryWrapper wrapper = new QueryWrapper<>();
         wrapper.eq("wx_open_id",openid);
+
+        UserMapper userMapper = getBaseMapper();
         User user = userMapper.selectOne(wrapper);
         if(user!=null) {//数据库存在该用户，更新数据
             user.setWxSessionKey(session_key);
@@ -74,4 +73,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         return jsonObject;
     }
+
+
 }
