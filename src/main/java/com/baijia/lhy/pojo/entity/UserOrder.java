@@ -1,8 +1,8 @@
 package com.baijia.lhy.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lhy
- * @since 2020-04-24
+ * @since 2020-05-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,27 +29,17 @@ public class UserOrder implements Serializable {
      * 订单id
      */
     @TableId(value = "order_id", type = IdType.AUTO)
-    private String orderId;
+    private Integer orderId;
 
     /**
-     * 订单总金额
+     * 用户id
      */
-    private Double allCost;
+    private Integer userId;
 
     /**
-     * 订单创建时间
+     * 收货门店id
      */
-    private LocalDateTime createTime;
-
-    /**
-     * 付款时间
-     */
-    private LocalDateTime payTime;
-
-    /**
-     * 收货人电话
-     */
-    private String receiverPhone;
+    private Integer receivePointId;
 
     /**
      * 收货人姓名
@@ -57,29 +47,46 @@ public class UserOrder implements Serializable {
     private String receiverName;
 
     /**
-     * 收货地址
+     * 收货人电话
      */
-    private String receiveAddress;
+    private String receiverPhone;
 
     /**
-     * 支付方式
+     * 支付方式: cash货到付款  wx微信支付 zfb支付宝支付
      */
     private String payType;
 
     /**
-     * 订单状态: 待付款，待收货,待评价，已退款，已取消
+     * 购买的商品列表：存储为json数据
      */
-    private String status;
+    private String products;
 
     /**
-     * 实际付款金额
+     * 预估总金额
      */
-    private Double actualPayment;
+    private Double estimateTotalCost;
 
     /**
-     * 总减免金额
+     * 实际付款总金额
      */
-    private Double totalDeduction;
+    private Double actualTotalCost;
+
+    /**
+     * 订单状态:  0待收货未付款，1待收货已付款,2已收货和付款，3待评价，-1已取消
+     */
+    private Integer status;
+
+    /**
+     * 付款时间
+     */
+    private LocalDateTime payTime;
+
+    /**
+     * 订单创建时间
+     */
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
 
 
 }
