@@ -3,6 +3,7 @@ package com.baijia.lhy.controller;
 
 import com.baijia.lhy.pojo.entity.ReceivePoint;
 import com.baijia.lhy.service.impl.ReceivePointServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,9 @@ public class ReceivePointController {
 
     @GetMapping("/getReceivePoints")
     public List<ReceivePoint> getReceivePoints(){
-        return receivePointService.list();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("status","0");
+        return receivePointService.list(queryWrapper);
     }
 }
 

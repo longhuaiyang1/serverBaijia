@@ -57,5 +57,9 @@ public class ReceivePoint implements Serializable {
      */
     private Double lat;
 
+    /**
+     * 门店状态： 0表示门店经营中，-1表示门店已废弃
+     */
+    private int status;
 
 }
