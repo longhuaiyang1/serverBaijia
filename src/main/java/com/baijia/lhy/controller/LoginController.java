@@ -1,6 +1,7 @@
 package com.baijia.lhy.controller;
 
 import com.baijia.lhy.service.IUserService;
+import com.baijia.lhy.utils.MD5Util;
 import net.minidev.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -34,6 +35,7 @@ public class LoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(openid, session_key);
         try {
             subject.login(token); //执行登录认证方法，如果没有异常说明OK
+            jsonObject.put("token", MD5Util.md5Encrypt32Lower(session_key));
             return jsonObject.toJSONString();
         } catch (UnknownAccountException e) {   //用户名不存在
             return "用户名不存在";

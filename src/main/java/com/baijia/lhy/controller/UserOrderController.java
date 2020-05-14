@@ -2,8 +2,11 @@ package com.baijia.lhy.controller;
 
 
 import com.baijia.lhy.pojo.dto.Result;
+import com.baijia.lhy.pojo.entity.User;
 import com.baijia.lhy.pojo.entity.UserOrder;
 import com.baijia.lhy.service.IUserOrderService;
+import com.baijia.lhy.service.IUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +30,32 @@ import java.util.LinkedHashMap;
 @RestController
 public class UserOrderController {
     @Autowired
+    IUserService userService;
+
+    @Autowired
     IUserOrderService userOrderService;
 
     @PostMapping("/uploadOrder")
     public Result getReceivePoints(@RequestBody String str) {//这里可以用net.minidev.json.JSONObject直接入参，但不能用org.json.JSONObject
+        Result result = new Result();
         try {
             JSONObject jsonObject = new JSONObject(str);
+            //根据入参token查找用户信息
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("token",jsonObject.getString("token"));
+
+            System.out.println("&&&&&&sessionKey:"+ jsonObject.getString("token"));
+            User user = userService.getOne(queryWrapper);
+            if(user==null || user.getUserId()<=0){
+                result.setCode(3006);
+                result.setMsg("用户token错误");
+                result.setData(new net.minidev.json.JSONObject());
+                return result;
+            }
+
             UserOrder userOrder = new UserOrder();
             ////////////////////////////////////////
-            userOrder.setUserId(1);
+            userOrder.setUserId(user.getUserId());
 
             JSONObject receivePoint = jsonObject.getJSONObject("receivePoint");
             userOrder.setReceivePointId(receivePoint.getInt("id"));
@@ -54,7 +74,6 @@ public class UserOrderController {
 
             boolean success = userOrderService.save(userOrder);
 
-            Result result = new Result();
             if (success) {
                 result.setCode(2001);
                 result.setMsg("");
@@ -67,9 +86,8 @@ public class UserOrderController {
         }
 
         //失败
-        Result result = new Result();
         result.setCode(3006);
-        result.setMsg("失败");
+        result.setMsg("处理失败");
         result.setData(new net.minidev.json.JSONObject());
         return result;
     }

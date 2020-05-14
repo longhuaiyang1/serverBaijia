@@ -40,6 +40,11 @@ public class User implements Serializable {
     private String wxSessionKey;
 
     /**
+     * 临时会话秘钥
+     */
+    private String token;
+
+    /**
      * 用户昵称
      */
     private String nickName;
@@ -48,6 +53,21 @@ public class User implements Serializable {
      * 真实名字
      */
     private String realName;
+
+    /**
+     * 收货点id
+     */
+    private Integer receivePointId;
+
+    /**
+     * 收货人姓名
+     */
+    private String receiverName;
+
+    /**
+     * 收货人电话
+     */
+    private String receiverPhone;
 
     /**
      * 头像url

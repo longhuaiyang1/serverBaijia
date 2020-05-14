@@ -3,6 +3,7 @@ package com.baijia.lhy.config;
 import com.baijia.lhy.mapper.UserMapper;
 import com.baijia.lhy.pojo.entity.User;
 import com.baijia.lhy.service.IUserService;
+import com.baijia.lhy.utils.MD5Util;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -61,6 +62,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         user.setWxOpenId(openid);
         user.setWxSessionKey(session_key);
+        user.setToken(MD5Util.md5Encrypt32Lower(session_key));
         boolean success = userService.saveOrUpdate(user);
 
         if (success) {
