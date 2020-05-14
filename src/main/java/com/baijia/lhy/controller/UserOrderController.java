@@ -73,7 +73,12 @@ public class UserOrderController {
             userOrder.setUpdateTime(time);
 
             boolean success = userOrderService.save(userOrder);
-
+            if(success){
+                user.setReceivePointId(receivePoint.getInt("id"));
+                user.setReceiverName(jsonObject.getString("receiverUserName"));
+                user.setReceiverPhone(jsonObject.getString("receiverUserPhone"));
+                userService.saveOrUpdate(user);
+            }
             if (success) {
                 result.setCode(2001);
                 result.setMsg("");
