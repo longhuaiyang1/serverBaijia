@@ -1,5 +1,6 @@
 package com.baijia.lhy.service;
 
+import com.baijia.lhy.pojo.dto.UserReceivePoint;
 import com.baijia.lhy.pojo.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import net.minidev.json.JSONObject;
@@ -14,4 +15,6 @@ import net.minidev.json.JSONObject;
  */
 public interface IUserService extends IService<User> {
     JSONObject wx_login(String code);
+
+    UserReceivePoint getUserReceiveInfo(String token);
 }

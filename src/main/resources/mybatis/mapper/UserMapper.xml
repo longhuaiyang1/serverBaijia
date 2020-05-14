@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baijia.lhy.mapper.UserMapper">
+    <resultMap id="resultMap" type="com.baijia.lhy.pojo.dto.UserReceivePoint">
+        <association property="user" resultMap="userResultMap"/>
+        <association property="receivePoint" resultMap="receivePointResultMap"/>
+    </resultMap>
+
+    <resultMap id="userResultMap" type="com.baijia.lhy.pojo.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="wx_open_id" property="wxOpenId"/>
+        <result column="wx_session_key" property="wxSessionKey"/>
+        <result column="token" property="token"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="real_name" property="realName"/>
+        <result column="phone" property="phone"/>
+        <result column="receive_point_id" property="receivePointId"/>
+        <result column="receiver_name" property="receiverName"/>
+        <result column="receiver_phone" property="receiverPhone"/>
+        <result column="header_img" property="headerImg"/>
+        <result column="password" property="password"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="last_login_ip" property="lastLoginIp"/>
+    </resultMap>
+
+    <resultMap id="receivePointResultMap" type="com.baijia.lhy.pojo.entity.ReceivePoint">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="detail" property="detail"/>
+        <result column="head_url" property="headUrl"/>
+        <result column="lng" property="lng"/>
+        <result column="lat" property="lat"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="getUserReceiveInfo" resultMap="resultMap">
+         select * from receive_point r inner join user u on r.id=u.receive_point_id and u.token=#{token}
+    </select>
 </mapper>

@@ -1,13 +1,12 @@
 package com.baijia.lhy.service.impl;
 
+import com.baijia.lhy.pojo.dto.UserReceivePoint;
 import com.baijia.lhy.pojo.entity.User;
 import com.baijia.lhy.mapper.UserMapper;
 import com.baijia.lhy.service.IUserService;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.minidev.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -74,5 +73,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return jsonObject;
     }
 
+    @Override
+    public UserReceivePoint getUserReceiveInfo(String token) {
+        UserMapper userMapper = getBaseMapper();
+        UserReceivePoint userReceivePoint = userMapper.getUserReceiveInfo(token);
+        User user = userReceivePoint.getUser();
+        User newUser = new User();
+        newUser.setReceivePointId(user.getReceivePointId());
+        newUser.setReceiverName(user.getReceiverName());
+        newUser.setReceiverPhone(user.getReceiverPhone());
+        userReceivePoint.setUser(newUser);
+//        newUser.setUserId(user.getUserId());
+//        ReceivePoint receivePoint = userReceivePoint.getReceivePoint();
+//
+//        UserReceiveInfo userReceiveInfo = new UserReceiveInfo();
+//        userReceiveInfo.setReceivePointId(user.getReceivePointId());
+//        userReceiveInfo.setReceiverName(user.getReceiverName());
+//        userReceiveInfo.setReceiverPhone(user.getReceiverPhone());
+//        userReceiveInfo.setUserId(user.getUserId());
+
+        return userReceivePoint;
+    }
 
 }
