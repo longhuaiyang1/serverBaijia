@@ -4,6 +4,7 @@ package com.baijia.lhy.controller;
 import com.baijia.lhy.pojo.dto.Result;
 import com.baijia.lhy.pojo.entity.User;
 import com.baijia.lhy.pojo.entity.UserOrder;
+import com.baijia.lhy.service.IShopCarService;
 import com.baijia.lhy.service.IUserOrderService;
 import com.baijia.lhy.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +34,9 @@ import java.util.LinkedHashMap;
 public class UserOrderController {
     @Autowired
     IUserService userService;
+
+    @Autowired
+    IShopCarService shopCarService;
 
     @Autowired
     IUserOrderService userOrderService;
@@ -62,7 +68,9 @@ public class UserOrderController {
 
             userOrder.setReceiverName(jsonObject.getString("receiverUserName"));
             userOrder.setReceiverPhone(jsonObject.getString("receiverUserPhone"));
-            userOrder.setProducts(jsonObject.getJSONArray("productsArray").toString());
+
+            JSONArray productsArray = jsonObject.getJSONArray("productsArray");
+            userOrder.setProducts(productsArray.toString());
             userOrder.setEstimateTotalCost(Double.valueOf(jsonObject.getString("totalPrice")));
 
             userOrder.setPayType("cash");
@@ -78,14 +86,21 @@ public class UserOrderController {
                 user.setReceiverName(jsonObject.getString("receiverUserName"));
                 user.setReceiverPhone(jsonObject.getString("receiverUserPhone"));
                 userService.saveOrUpdate(user);
-            }
-            if (success) {
+                //删除订单库中的数据
+                List list = new ArrayList<>();
+                for(int i = 0; i<productsArray.length(); i++){
+                    list.add(productsArray.getJSONObject(i).getInt("goodsId"));
+                }
+                queryWrapper = new QueryWrapper();
+                queryWrapper.eq("user_id",user.getUserId());
+                queryWrapper.in("goods_id",list);
+                shopCarService.remove(queryWrapper);
+                //
                 result.setCode(2001);
                 result.setMsg("");
                 result.setData(new net.minidev.json.JSONObject());//这里用org.json.JSONObject会报错，不知道为啥？序列化傻的报错
                 return result;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
