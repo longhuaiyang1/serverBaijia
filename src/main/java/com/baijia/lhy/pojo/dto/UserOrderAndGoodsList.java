@@ -1,30 +1,21 @@
-package com.baijia.lhy.pojo.entity;
+package com.baijia.lhy.pojo.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baijia.lhy.pojo.entity.UserOrder;
+import com.baijia.lhy.pojo.entity.UserOrderGoods;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author lhy
- * @since 2020-05-13
- */
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("user_order")
-public class UserOrder implements Serializable {
-
-    private static final long serialVersionUID=1L;
-
+public class UserOrderAndGoodsList implements Serializable {
     /**
      * 订单id
      */
@@ -82,6 +73,6 @@ public class UserOrder implements Serializable {
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
-
-
+//    UserOrder userOrder;
+    List<UserOrderGoods> userOrderGoodsList;
 }

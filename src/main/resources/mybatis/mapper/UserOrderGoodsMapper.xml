@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baijia.lhy.mapper.UserOrderGoodsMapper">
+    <resultMap id="resultMap" type="com.baijia.lhy.pojo.dto.UserOrderAndGoodsList">
+        <id column="order_id" property="orderId"/>
+        <result column="user_id" property="userId"/>
+        <result column="receive_point_id" property="receivePointId"/>
+        <result column="receiver_name" property="receiverName"/>
+        <result column="receiver_phone" property="receiverPhone"/>
+        <result column="estimate_total_cost" property="estimateTotalCost"/>
+        <result column="actual_total_cost" property="actualTotalCost"/>
+        <result column="status" property="status"/>
+        <result column="pay_type" property="payType"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+
+<!--        一对一和一对多，主的key必须放外面，association已经表示是后者了，不能成为主，所以这里不能用下面代码替代上面的key-->
+<!--        <association property="userOrder" resultMap="userOrderResultMap"/>-->
+        <collection property="userOrderGoodsList" resultMap="userOrderGoodsResultMap"/>
+    </resultMap>
+
+    <resultMap id="userOrderResultMap" type="com.baijia.lhy.pojo.entity.UserOrder">
+        <id column="order_id" property="orderId"/>
+        <result column="user_id" property="userId"/>
+        <result column="receive_point_id" property="receivePointId"/>
+        <result column="receiver_name" property="receiverName"/>
+        <result column="receiver_phone" property="receiverPhone"/>
+        <result column="estimate_total_cost" property="estimateTotalCost"/>
+        <result column="actual_total_cost" property="actualTotalCost"/>
+        <result column="status" property="status"/>
+        <result column="pay_type" property="payType"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="userOrderGoodsResultMap" type="com.baijia.lhy.pojo.entity.UserOrderGoods">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="title" property="title"/>
+        <result column="img" property="img"/>
+        <result column="old_price" property="oldPrice"/>
+        <result column="price" property="price"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <select id="getOrderUnpayList" resultMap="resultMap">
+          select * from user_order_goods g inner join user_order o  on g.order_id=o.order_id and o.user_id=#{userId}
+    </select>
+</mapper>
