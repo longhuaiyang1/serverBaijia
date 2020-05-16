@@ -17,4 +17,10 @@ import java.util.List;
 public interface IUserOrderGoodsService extends IService<UserOrderGoods> {
 
     List<UserOrderAndGoodsList>  getOrderUnpayList(int userId);
+
+    List<UserOrderAndGoodsList>  getOrderWaitReceiveList(int userId);
+
+    List<UserOrderAndGoodsList>  getOrderFinishedList(int userId);
+
+    List<UserOrderAndGoodsList> getOrderCancledList(int userId);
 }

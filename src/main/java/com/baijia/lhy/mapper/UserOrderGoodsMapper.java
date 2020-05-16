@@ -20,4 +20,10 @@ import java.util.List;
 @Repository
 public interface UserOrderGoodsMapper extends BaseMapper<UserOrderGoods> {
     List<UserOrderAndGoodsList> getOrderUnpayList(int userId);
+
+    List<UserOrderAndGoodsList> getOrderWaitReceiveList(int userId);
+
+    List<UserOrderAndGoodsList> getOrderFinishedList(int userId);
+
+    List<UserOrderAndGoodsList> getOrderCancledList(int userId);
 }

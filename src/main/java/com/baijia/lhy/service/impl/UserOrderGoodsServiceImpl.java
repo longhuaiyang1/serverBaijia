@@ -25,4 +25,22 @@ public class UserOrderGoodsServiceImpl extends ServiceImpl<UserOrderGoodsMapper,
         UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
         return userOrderGoodsMapper.getOrderUnpayList(userId);
     }
+
+    @Override
+    public List<UserOrderAndGoodsList> getOrderWaitReceiveList(int userId) {
+        UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
+        return userOrderGoodsMapper.getOrderWaitReceiveList(userId);
+    }
+
+    @Override
+    public List<UserOrderAndGoodsList> getOrderFinishedList(int userId) {
+        UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
+        return userOrderGoodsMapper.getOrderFinishedList(userId);
+    }
+
+    @Override
+    public List<UserOrderAndGoodsList> getOrderCancledList(int userId) {
+        UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
+        return userOrderGoodsMapper.getOrderCancledList(userId);
+    }
 }

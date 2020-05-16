@@ -180,35 +180,131 @@ public class UserOrderController {
         return result;
     }
 
-//    /**
-//     * 获取待收货订单列表
-//     *
-//     * @param str
-//     * @return
-//     */
-//    @PostMapping("/getOrderWaitReceiveList")
-//    public Result getOrderWaitReceiveList(@RequestBody String str) {
-//    }
-//
-//    /**
-//     * 获取已完成订单列表
-//     *
-//     * @param str
-//     * @return
-//     */
-//    @PostMapping("/getOrderFinishedList")
-//    public Result getOrderFinishedList(@RequestBody String str) {
-//    }
-//
-//    /**
-//     * 获取已取消订单列表
-//     *
-//     * @param str
-//     * @return
-//     */
-//    @PostMapping("/getOrderCancledList")
-//    public Result getOrderCancledList(@RequestBody String str) {
-//    }
+    /**
+     * 获取待收货订单列表
+     *
+     * @param str
+     * @return
+     */
+    @PostMapping("/getOrderWaitReceiveList")
+    public Result getOrderWaitReceiveList(@RequestBody String str) {
+        Result result = new Result();
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            //根据入参token查找用户信息
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("token", jsonObject.getString("token"));
+
+            System.out.println("&&&&&&sessionKey:" + jsonObject.getString("token"));
+            User user = userService.getOne(queryWrapper);
+            if (user == null || user.getUserId() <= 0) {
+                result.setCode(3006);
+                result.setMsg("用户token错误");
+                result.setData(new net.minidev.json.JSONObject());
+                return result;
+            }
+
+            List list = userOrderGoodsService.getOrderWaitReceiveList(user.getUserId());
+
+            //
+            result.setCode(2001);
+            result.setMsg("");
+            result.setData(list);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //失败
+        result.setCode(3006);
+        result.setMsg("处理失败");
+        result.setData(new net.minidev.json.JSONObject());
+        return result;
+    }
+
+    /**
+     * 获取已完成订单列表
+     *
+     * @param str
+     * @return
+     */
+    @PostMapping("/getOrderFinishedList")
+    public Result getOrderFinishedList(@RequestBody String str) {
+        Result result = new Result();
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            //根据入参token查找用户信息
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("token", jsonObject.getString("token"));
+
+            System.out.println("&&&&&&sessionKey:" + jsonObject.getString("token"));
+            User user = userService.getOne(queryWrapper);
+            if (user == null || user.getUserId() <= 0) {
+                result.setCode(3006);
+                result.setMsg("用户token错误");
+                result.setData(new net.minidev.json.JSONObject());
+                return result;
+            }
+
+            List list = userOrderGoodsService.getOrderFinishedList(user.getUserId());
+
+            //
+            result.setCode(2001);
+            result.setMsg("");
+            result.setData(list);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //失败
+        result.setCode(3006);
+        result.setMsg("处理失败");
+        result.setData(new net.minidev.json.JSONObject());
+        return result;
+    }
+
+    /**
+     * 获取已取消订单列表
+     *
+     * @param str
+     * @return
+     */
+    @PostMapping("/getOrderCancledList")
+    public Result getOrderCancledList(@RequestBody String str) {
+        Result result = new Result();
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            //根据入参token查找用户信息
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("token", jsonObject.getString("token"));
+
+            System.out.println("&&&&&&sessionKey:" + jsonObject.getString("token"));
+            User user = userService.getOne(queryWrapper);
+            if (user == null || user.getUserId() <= 0) {
+                result.setCode(3006);
+                result.setMsg("用户token错误");
+                result.setData(new net.minidev.json.JSONObject());
+                return result;
+            }
+
+            List list = userOrderGoodsService.getOrderCancledList(user.getUserId());
+
+            //
+            result.setCode(2001);
+            result.setMsg("");
+            result.setData(list);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //失败
+        result.setCode(3006);
+        result.setMsg("处理失败");
+        result.setData(new net.minidev.json.JSONObject());
+        return result;
+    }
 
 }
 
