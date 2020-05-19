@@ -23,4 +23,6 @@ public interface IUserOrderGoodsService extends IService<UserOrderGoods> {
     List<UserOrderAndGoodsList>  getOrderFinishedList(int userId);
 
     List<UserOrderAndGoodsList> getOrderCancledList(int userId);
+
+    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId);
 }

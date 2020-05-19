@@ -26,4 +26,6 @@ public interface UserOrderGoodsMapper extends BaseMapper<UserOrderGoods> {
     List<UserOrderAndGoodsList> getOrderFinishedList(int userId);
 
     List<UserOrderAndGoodsList> getOrderCancledList(int userId);
+
+    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId);
 }

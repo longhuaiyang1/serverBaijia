@@ -43,4 +43,10 @@ public class UserOrderGoodsServiceImpl extends ServiceImpl<UserOrderGoodsMapper,
         UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
         return userOrderGoodsMapper.getOrderCancledList(userId);
     }
+
+    @Override
+    public List<UserOrderAndGoodsList> getReceiveListInPoint(int userId) {
+        UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
+        return userOrderGoodsMapper.getReceiveListInPoint(userId);
+    }
 }

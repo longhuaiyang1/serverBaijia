@@ -94,5 +94,8 @@ public class User implements Serializable {
      */
     private String lastLoginIp;
 
-
+    /**
+     * 管理的收货点id
+     */
+    private Integer managePointId;
 }
