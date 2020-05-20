@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,5 +28,5 @@ public interface UserOrderGoodsMapper extends BaseMapper<UserOrderGoods> {
 
     List<UserOrderAndGoodsList> getOrderCancledList(int userId);
 
-    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId);
+    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId, LocalDate planReceiveTime);
 }

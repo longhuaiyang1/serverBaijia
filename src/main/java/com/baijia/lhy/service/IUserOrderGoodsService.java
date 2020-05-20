@@ -4,6 +4,7 @@ import com.baijia.lhy.pojo.dto.UserOrderAndGoodsList;
 import com.baijia.lhy.pojo.entity.UserOrderGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -24,5 +25,5 @@ public interface IUserOrderGoodsService extends IService<UserOrderGoods> {
 
     List<UserOrderAndGoodsList> getOrderCancledList(int userId);
 
-    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId);
+    List<UserOrderAndGoodsList> getReceiveListInPoint(int userId, LocalDate planReceiveTime);
 }

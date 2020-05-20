@@ -3,6 +3,8 @@ package com.baijia.lhy.pojo.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -11,7 +13,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author lhy
@@ -23,7 +25,7 @@ import lombok.experimental.Accessors;
 @TableName("user_order")
 public class UserOrder implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 订单id
@@ -81,7 +83,19 @@ public class UserOrder implements Serializable {
      */
     private LocalDateTime createTime;
 
+    /**
+     * 记录更新时间
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * 计划收货日期
+     */
+    private LocalDate planReceiveTime;
+
+    /**
+     * 实际收货时间
+     */
+    private LocalDate receiveTime;
 
 }

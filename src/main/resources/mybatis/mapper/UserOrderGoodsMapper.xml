@@ -59,6 +59,6 @@
          select * from user_order_goods g inner join user_order o  on g.order_id=o.order_id and o.user_id=#{userId} and o.status=-1
     </select>
     <select id="getReceiveListInPoint" resultMap="resultMap">
-         select * from user_order_goods g inner join user_order o  on g.order_id=o.order_id and o.user_id=#{userId} and (o.status=0 OR o.status=1)
+         select * from user_order_goods g inner join user_order o  on g.order_id=o.order_id and o.user_id=#{userId} and (o.status=0 OR o.status=1) and o.plan_receive_time = #{planReceiveTime}
     </select>
 </mapper>

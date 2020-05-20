@@ -13,16 +13,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -80,9 +76,12 @@ public class UserOrderController {
             userOrder.setPayType("cash");
             userOrder.setStatus(0);//0待支付
 
-            LocalDateTime time = LocalDateTime.now(Clock.system(ZoneId.of("Asia/Shanghai")));
+            LocalDateTime time = LocalDateTime.now();
             userOrder.setCreateTime(time);
             userOrder.setUpdateTime(time);
+
+            time = time.plusDays(1);//收货时间顺延一天
+            userOrder.setPlanReceiveTime(time.toLocalDate());
 
             boolean success = userOrderService.save(userOrder);
             JSONArray productsArray = jsonObject.getJSONArray("productsArray");

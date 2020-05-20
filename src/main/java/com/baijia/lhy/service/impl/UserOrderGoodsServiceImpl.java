@@ -7,6 +7,7 @@ import com.baijia.lhy.service.IUserOrderGoodsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,8 +46,8 @@ public class UserOrderGoodsServiceImpl extends ServiceImpl<UserOrderGoodsMapper,
     }
 
     @Override
-    public List<UserOrderAndGoodsList> getReceiveListInPoint(int userId) {
+    public List<UserOrderAndGoodsList> getReceiveListInPoint(int userId,LocalDate planReceiveTime) {
         UserOrderGoodsMapper userOrderGoodsMapper = getBaseMapper();
-        return userOrderGoodsMapper.getReceiveListInPoint(userId);
+        return userOrderGoodsMapper.getReceiveListInPoint(userId, planReceiveTime);
     }
 }
